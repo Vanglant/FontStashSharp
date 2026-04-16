@@ -4,51 +4,50 @@ using Microsoft.Xna.Framework.Graphics;
 #elif STRIDE
 using Stride.Core.Mathematics;
 #else
-using System.Drawing;
 #endif
 
 namespace FontStashSharp.RichText
 {
-	internal enum ChunkInfoType
-	{
-		Text,
-		Space,
-		Image
-	}
+  internal enum ChunkInfoType
+  {
+	Text,
+	Space,
+	Image
+  }
 
-	internal struct ChunkInfo
-	{
-		public ChunkInfoType Type;
-		public int X;
-		public int Y;
-		public bool LineEnd;
-		public int StartIndex, EndIndex;
-		public IRenderable Renderable;
+  internal struct ChunkInfo
+  {
+	public ChunkInfoType Type;
+	public int X;
+	public int Y;
+	public bool LineEnd;
+	public int StartIndex, EndIndex;
+	public IRenderable Renderable;
 
-		public int Width
+	public int Width
+	{
+	  get
+	  {
+		if (Type == ChunkInfoType.Image)
 		{
-			get
-			{
-				if (Type == ChunkInfoType.Image)
-				{
-					return Renderable.Size.X;
-				}
-
-				return X;
-			}
+		  return (int)Renderable.Size.X;
 		}
 
-		public int Height
-		{
-			get
-			{
-				if (Type == ChunkInfoType.Image)
-				{
-					return Renderable.Size.Y;
-				}
-
-				return Y;
-			}
-		}
+		return X;
+	  }
 	}
+
+	public int Height
+	{
+	  get
+	  {
+		if (Type == ChunkInfoType.Image)
+		{
+		  return (int)Renderable.Size.Y;
+		}
+
+		return Y;
+	  }
+	}
+  }
 }

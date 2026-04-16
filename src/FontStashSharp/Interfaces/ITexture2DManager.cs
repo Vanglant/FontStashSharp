@@ -33,4 +33,36 @@ namespace FontStashSharp.Interfaces
 	}
 }
 
+#elif RAYLIB
+
+namespace FontStashSharp.Interfaces
+{
+  /// <summary>
+  /// Texture Creation Service
+  /// </summary>
+  public interface ITexture2DManager
+  {
+	/// <summary>
+	/// Creates a texture of the specified size
+	/// </summary>
+	/// <param name="width"></param>
+	/// <param name="height"></param>
+	/// <returns></returns>
+	Texture2D CreateTexture(int width, int height);
+
+	/// <summary>
+	/// Returns size of the specified texture
+	/// </summary>
+	/// <param name="texture"></param>
+	/// <returns></returns>
+	Vector2 GetTextureSize(Texture2D texture);
+
+	/// <summary>
+	/// Sets RGBA data at the specified bounds
+	/// </summary>
+	/// <param name="bounds"></param>
+	/// <param name="data"></param>
+	void SetTextureData(Texture2D texture, Rectangle bounds, byte[] data);
+  }
+}
 #endif

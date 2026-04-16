@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Stride.Core.Mathematics;
 using Stride.Graphics;
 using Texture2D = Stride.Graphics.Texture;
+#elif RAYLIB
+using Raylib_cs;
+using System.Numerics;
+using System.Runtime.InteropServices;
 #else
 using System.Numerics;
 using Texture2D = System.Object;
@@ -38,16 +42,42 @@ namespace FontStashSharp.Interfaces
 			TextureCoordinate = texCoord;
 		}
 	}
+#elif RAYLIB
+  [StructLayout(LayoutKind.Sequential, Pack = 1)]
+  public struct VertexPositionColorTexture
+  {
+	/// <summary>
+	/// Position
+	/// </summary>
+	public Vector3 Position;
+
+	/// <summary>
+	/// Color
+	/// </summary>
+	public Color Color;
+
+	/// <summary>
+	/// Texture Coordinate
+	/// </summary>
+	public Vector2 TextureCoordinate;
+
+	public VertexPositionColorTexture(Vector3 position, Color color, Vector2 texCoord)
+	{
+	  Position = position;
+	  Color = color;
+	  TextureCoordinate = texCoord;
+	}
+  }
 #endif
 
-	public interface IFontStashRenderer2
-	{
+  public interface IFontStashRenderer2
+  {
 #if MONOGAME || FNA || XNA || STRIDE
 		GraphicsDevice GraphicsDevice { get; }
 #else
-		ITexture2DManager TextureManager { get; }
+	ITexture2DManager TextureManager { get; }
 #endif
 
-		void DrawQuad(Texture2D texture, ref VertexPositionColorTexture topLeft, ref VertexPositionColorTexture topRight, ref VertexPositionColorTexture bottomLeft, ref VertexPositionColorTexture bottomRight);
-	}
+	void DrawQuad(Texture2D texture, ref VertexPositionColorTexture topLeft, ref VertexPositionColorTexture topRight, ref VertexPositionColorTexture bottomLeft, ref VertexPositionColorTexture bottomRight);
+  }
 }
